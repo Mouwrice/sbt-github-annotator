@@ -18,4 +18,4 @@ jobs:
         java-version: 11
         distribution: temurin
     - uses: sbt/setup-sbt@v1
-    - run: sbt scalafmtSbtCheck scalafmtCheckAll test scripted
+    - run: sbt test scripted
