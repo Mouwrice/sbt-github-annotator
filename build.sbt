@@ -11,14 +11,14 @@ libraryDependencies ++= Seq(
 inThisBuild(
   List(
     organization := "net.virtual-void",
-    homepage     := Some(url("https://github.com/jrudolph/sbt-hackers-digest")),
-    licenses     := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+    homepage     := Some(url("https://github.com/Mouwrice/sbt-hackers-digest")),
+    licenses     := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
     developers := List(
       Developer(
-        "jrudolph",
-        "Johannes Rudolph",
-        "johannes.rudolph@gmail.com",
-        url("https://virtual-void.net")
+        "mouwrice",
+        "Maurice Van Wassenhove",
+        "mauricevanwassenhove@fastmail.com",
+        url("https://github.com/mouwrice")
       )
     )
   )
@@ -31,18 +31,18 @@ enablePlugins(ScriptedPlugin)
 scriptedLaunchOpts ++=
   Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
 
-ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
-ThisBuild / githubWorkflowPublishTargetBranches :=
-  Seq(RefPredicate.StartsWith(Ref.Tag("v")))
-
-ThisBuild / githubWorkflowPublish := Seq(
-  WorkflowStep.Sbt(
-    List("ci-release"),
-    env = Map(
-      "PGP_PASSPHRASE"    -> "${{ secrets.PGP_PASSPHRASE }}",
-      "PGP_SECRET"        -> "${{ secrets.PGP_SECRET }}",
-      "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
-      "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}"
-    )
-  )
-)
+//ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
+//ThisBuild / githubWorkflowPublishTargetBranches :=
+//  Seq(RefPredicate.StartsWith(Ref.Tag("v")))
+//
+//ThisBuild / githubWorkflowPublish := Seq(
+//  WorkflowStep.Sbt(
+//    List("ci-release"),
+//    env = Map(
+//      "PGP_PASSPHRASE"    -> "${{ secrets.PGP_PASSPHRASE }}",
+//      "PGP_SECRET"        -> "${{ secrets.PGP_SECRET }}",
+//      "SONATYPE_PASSWORD" -> "${{ secrets.SONATYPE_PASSWORD }}",
+//      "SONATYPE_USERNAME" -> "${{ secrets.SONATYPE_USERNAME }}"
+//    )
+//  )
+//)
