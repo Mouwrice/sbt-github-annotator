@@ -1,8 +1,13 @@
+import sbt.Keys.homepage
+import sbt.Keys.homepage
+import sbt.Keys.homepage
+import sbt.Keys.homepage
+import sbt.Keys.homepage
+
 name := """sbt-hackers-digest"""
 
 sbtPlugin := true
 
-// ScalaTest
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.2.9"  % "test",
   "org.scalatest" %% "scalatest" % "3.2.19" % "test"
@@ -10,7 +15,7 @@ libraryDependencies ++= Seq(
 
 inThisBuild(
   List(
-    organization := "net.virtual-void",
+    organization := "io.github.mouwrice",
     homepage     := Some(url("https://github.com/Mouwrice/sbt-hackers-digest")),
     licenses     := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
     developers := List(
@@ -23,6 +28,8 @@ inThisBuild(
     )
   )
 )
+
+ThisBuild / versionScheme := Some("semver-spec")
 
 console / initialCommands := """import net.virtualvoid.hackersdigest._"""
 
