@@ -64,6 +64,9 @@ object HackersDigestPlugin extends AutoPlugin {
       settingKey[AnnotationFilter](
         "Can be overridden to do fine-grained filtering for annotations. Will override whatever the boolean flag keys have set"
       )
+    val hackersDigestFilePathPrefix = settingKey[String](
+      "Path prefix for the file paths in the annotations. Used for when your project is not at the root of your github repository."
+    )
 
     private[HackersDigestPlugin] val hackersDigestAnnotator = settingKey[Annotator]("")
   }
@@ -89,6 +92,7 @@ object HackersDigestPlugin extends AutoPlugin {
     hackersDigestAnnotateTestFailures    := true,
     hackersDigestAnnotateCompileWarnings := true,
     hackersDigestAnnotateCompileErrors   := true,
+    hackersDigestFilePathPrefix          := ".",
     hackersDigestAnnotationFilter := {
       val annotateTestFailures = hackersDigestAnnotateTestFailures.value
       val compileWarnings      = hackersDigestAnnotateCompileWarnings.value
@@ -120,7 +124,8 @@ object HackersDigestPlugin extends AutoPlugin {
       new GithubActionCompileReporter(
         hackersDigestAnnotator.value,
         (config / compile / InternalAccess.compilerReporter).value,
-        (ThisBuild / baseDirectory).value
+        (ThisBuild / baseDirectory).value,
+        hackersDigestFilePathPrefix.value
       )
 
   private def annotator(filter: AnnotationFilter): Annotator = new Annotator {

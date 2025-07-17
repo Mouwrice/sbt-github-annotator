@@ -3,7 +3,7 @@ package net.virtualvoid.hackersdigest
 import java.io.File
 import xsbti.Severity
 
-class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter, baseDir: File)
+class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter, baseDir: File, pathPrefix: String)
     extends xsbti.Reporter {
   def reset(): Unit                  = delegate.reset()
   def hasErrors: Boolean             = delegate.hasErrors
@@ -33,7 +33,7 @@ class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter
       val message = problem.message.split("\n").head
       val file    = baseDir.toPath.relativize(position.sourceFile.get().toPath).toFile
       val line    = if (position.line.isPresent) Some(position.line.get().intValue) else None
-      annotator.createAnnotation(AnnotationOrigin.Compilation, level, message, Some(file.toString), line)
+      annotator.createAnnotation(AnnotationOrigin.Compilation, level, message, Some(s"$pathPrefix/$file"), line)
     }
   }
 
