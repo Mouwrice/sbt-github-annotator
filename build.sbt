@@ -1,22 +1,18 @@
 import sbt.Keys.homepage
-import sbt.Keys.homepage
-import sbt.Keys.homepage
-import sbt.Keys.homepage
-import sbt.Keys.homepage
 
-name := """sbt-hackers-digest"""
+name := """sbt-github-annotator"""
 
 sbtPlugin := true
 
 libraryDependencies ++= Seq(
-  "org.scalactic" %% "scalactic" % "3.2.9"  % "test",
+  "org.scalactic" %% "scalactic" % "3.2.19"  % "test",
   "org.scalatest" %% "scalatest" % "3.2.19" % "test"
 )
 
 inThisBuild(
   List(
     organization := "io.github.mouwrice",
-    homepage     := Some(url("https://github.com/Mouwrice/sbt-hackers-digest")),
+    homepage     := Some(url("https://github.com/Mouwrice/sbt-github-annotator")),
     licenses     := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
     developers := List(
       Developer(
