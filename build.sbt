@@ -50,4 +50,4 @@ scriptedLaunchOpts ++=
 //  )
 //)
 
-wartremoverWarnings ++= Seq(Wart.ArrayEquals, Wart.Any)
+wartremoverWarnings ++= Seq(Wart.ArrayEquals, Wart.Any, Wart.AnyVal, Wart.AsInstanceOf)

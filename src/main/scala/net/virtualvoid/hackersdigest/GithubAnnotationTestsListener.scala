@@ -36,14 +36,14 @@ class GithubAnnotationTestsListener(annotator: Annotator, baseDir: File, sourceD
   }
 
   private def findFile(fileName: String): Option[File] = {
-    def findIn(base: File): Seq[File] =
+    def findIn(base: File): Option[File] =
       Files
         .find(base.toPath, 20, (p, _) => p.toFile.getName == fileName)
-        .toArray
-        .toSeq
-        .map(p => baseDir.toPath.relativize(p.asInstanceOf[Path]).toFile)
+        .findFirst()
+        .asScala
+        .map(p => baseDir.toPath.relativize(p).toFile)
 
-    sourceDirs.filter(_.exists()).flatMap(findIn(_)).headOption
+    sourceDirs.filter(_.exists()).flatMap(findIn).headOption
   }
 
   override def endGroup(name: String, t: Throwable): Unit = println("::endgroup::")
