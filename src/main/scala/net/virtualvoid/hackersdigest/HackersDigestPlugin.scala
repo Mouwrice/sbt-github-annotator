@@ -1,7 +1,7 @@
 package net.virtualvoid.hackersdigest
 
-import sbt._
-import Keys._
+import sbt.*
+import Keys.*
 import sbt.hackersdigest.InternalAccess
 
 sealed trait AnnotationOrigin
@@ -72,23 +72,24 @@ object HackersDigestPlugin extends AutoPlugin {
   }
   import autoImport._
 
-  override def projectSettings =
+  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  override def projectSettings: Seq[Def.Setting[?]] =
     if (sys.env.contains("GITHUB_ENV"))
       Seq(
         reporterFor(Compile),
         reporterFor(Test),
-        testListeners ++= Seq(
+        testListeners +=
           new GithubAnnotationTestsListener(
             hackersDigestAnnotator.value,
             (ThisBuild / baseDirectory).value,
             (Test / sourceDirectories).value
           )
-        )
       )
     else
       Seq.empty
 
-  override def globalSettings = Seq(
+  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  override def globalSettings: Seq[Def.Setting[?]] = Seq(
     hackersDigestAnnotateTestFailures    := true,
     hackersDigestAnnotateCompileWarnings := true,
     hackersDigestAnnotateCompileErrors   := true,
@@ -119,7 +120,8 @@ object HackersDigestPlugin extends AutoPlugin {
     hackersDigestAnnotator := annotator(hackersDigestAnnotationFilter.value)
   )
 
-  private def reporterFor(config: Configuration): Setting[_] =
+  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  private def reporterFor(config: Configuration): Setting[?] =
     config / compile / InternalAccess.compilerReporter :=
       new GithubActionCompileReporter(
         hackersDigestAnnotator.value,
@@ -141,15 +143,9 @@ object HackersDigestPlugin extends AutoPlugin {
           case AnnotationSeverity.Warning => "warning"
           case AnnotationSeverity.Error   => "error"
         }
-        def e(key: String, value: Option[Any]): Option[String] =
-          value.map[String](v => s"$key=$v")
+        def e(key: String, value: Any): String = s"$key=$value"
 
-        val entries =
-          Seq(
-            "file" -> fileName,
-            "line" -> lineNumber
-          ).flatMap(x => e(x._1, x._2))
-            .mkString(",")
+        val entries = (Seq() ++ fileName.map(e("file", _)) ++ lineNumber.map(e("line", _))).mkString(",")
 
         println(s"::$severityTag $entries::$title")
       }
