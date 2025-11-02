@@ -5,7 +5,7 @@ name := """sbt-github-annotator"""
 sbtPlugin := true
 
 libraryDependencies ++= Seq(
-  "org.scalactic" %% "scalactic" % "3.2.19"  % "test",
+  "org.scalactic" %% "scalactic" % "3.2.19" % "test",
   "org.scalatest" %% "scalatest" % "3.2.19" % "test"
 )
 
