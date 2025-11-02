@@ -57,14 +57,17 @@ object HackersDigestPlugin extends AutoPlugin {
   override def trigger  = allRequirements
 
   object autoImport {
-    val hackersDigestAnnotateTestFailures    = settingKey[Boolean]("Whether test failures should be annotated")
-    val hackersDigestAnnotateCompileWarnings = settingKey[Boolean]("Whether compilation warnings should be annotated")
-    val hackersDigestAnnotateCompileErrors   = settingKey[Boolean]("Whether compilation errors should be annotated")
-    val hackersDigestAnnotationFilter =
+    val hackersDigestAnnotateTestFailures: SettingKey[Boolean] =
+      settingKey[Boolean]("Whether test failures should be annotated")
+    val hackersDigestAnnotateCompileWarnings: SettingKey[Boolean] =
+      settingKey[Boolean]("Whether compilation warnings should be annotated")
+    val hackersDigestAnnotateCompileErrors: SettingKey[Boolean] =
+      settingKey[Boolean]("Whether compilation errors should be annotated")
+    val hackersDigestAnnotationFilter: SettingKey[AnnotationFilter] =
       settingKey[AnnotationFilter](
         "Can be overridden to do fine-grained filtering for annotations. Will override whatever the boolean flag keys have set"
       )
-    val hackersDigestFilePathPrefix = settingKey[String](
+    val hackersDigestFilePathPrefix: SettingKey[String] = settingKey[String](
       "Path prefix for the file paths in the annotations. Used for when your project is not at the root of your github repository."
     )
 
@@ -72,7 +75,7 @@ object HackersDigestPlugin extends AutoPlugin {
   }
   import autoImport._
 
-  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  @SuppressWarnings(Array("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   override def projectSettings: Seq[Def.Setting[?]] =
     if (sys.env.contains("GITHUB_ENV"))
       Seq(
@@ -86,9 +89,9 @@ object HackersDigestPlugin extends AutoPlugin {
           )
       )
     else
-      Seq.empty
+      Nil
 
-  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  @SuppressWarnings(Array("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   override def globalSettings: Seq[Def.Setting[?]] = Seq(
     hackersDigestAnnotateTestFailures    := true,
     hackersDigestAnnotateCompileWarnings := true,
@@ -120,7 +123,7 @@ object HackersDigestPlugin extends AutoPlugin {
     hackersDigestAnnotator := annotator(hackersDigestAnnotationFilter.value)
   )
 
-  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  @SuppressWarnings(Array("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   private def reporterFor(config: Configuration): Setting[?] =
     config / compile / InternalAccess.compilerReporter :=
       new GithubActionCompileReporter(
@@ -145,7 +148,7 @@ object HackersDigestPlugin extends AutoPlugin {
         }
         def e(key: String, value: Any): String = s"$key=$value"
 
-        val entries = (Seq() ++ fileName.map(e("file", _)) ++ lineNumber.map(e("line", _))).mkString(",")
+        val entries: String = (fileName.map(e("file", _)) ++ lineNumber.map(e("line", _))).mkString(",")
 
         println(s"::$severityTag $entries::$title")
       }

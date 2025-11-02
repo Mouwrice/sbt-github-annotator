@@ -24,7 +24,7 @@ class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter
       def e(key: String, value: java.util.Optional[Integer]): String =
         value.map[String](v => s",$key=$v").orElse("")
 
-      val level = severity match {
+      val level: AnnotationSeverity = severity match {
         case Severity.Warn  => AnnotationSeverity.Warning
         case Severity.Error => AnnotationSeverity.Error
         case _              => throw new IllegalStateException

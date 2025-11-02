@@ -30,7 +30,7 @@ ThisBuild / versionScheme := Some("semver-spec")
 console / initialCommands := """import net.virtualvoid.hackersdigest._"""
 
 enablePlugins(ScriptedPlugin)
-// set up 'scripted; sbt plugin for testing sbt plugins
+// set up scripted; sbt plugin for testing sbt plugins
 scriptedLaunchOpts ++=
   Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
 
@@ -50,12 +50,12 @@ scriptedLaunchOpts ++=
 //  )
 //)
 
-wartremoverWarnings ++= Seq(
-  Wart.ArrayEquals,
-  Wart.Any,
-  Wart.AnyVal,
-  Wart.AsInstanceOf,
-  Wart.EitherProjectionPartial,
-  Wart.Enumeration,
-  Wart.ExplicitImplicitTypes
+wartremoverErrors ++= Warts.allBut(
+  Wart.Throw,
+  Wart.Equals,
+  Wart.Option2Iterable,
+  Wart.DefaultArguments,
+  Wart.Overloading,
+  Wart.ReverseFind,
+  Wart.NonUnitStatements
 )

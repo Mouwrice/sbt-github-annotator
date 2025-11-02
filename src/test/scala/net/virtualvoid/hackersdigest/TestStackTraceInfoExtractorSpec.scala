@@ -2,6 +2,7 @@ package net.virtualvoid.hackersdigest
 
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
+import org.scalatest.OptionValues.*
 
 class TestStackTraceInfoExtractorSpec extends AnyFreeSpec with Matchers {
   "TestStackTraceInfoExtractor must find the most relevant trace line" - {
@@ -38,7 +39,7 @@ class TestStackTraceInfoExtractorSpec extends AnyFreeSpec with Matchers {
             |at scala.runtime.function.JProcedure1.apply(JProcedure1.java:10)""".stripMargin
         )
 
-        val relevant = TestStackTraceInfoExtractor.mostRelevantTraceElement(trace).get
+        val relevant = TestStackTraceInfoExtractor.mostRelevantTraceElement(trace).value
         relevant.getFileName mustEqual "MailboxSelectorSpec.scala"
         relevant.getLineNumber mustBe 75
       }
@@ -75,7 +76,7 @@ class TestStackTraceInfoExtractorSpec extends AnyFreeSpec with Matchers {
             |at scala.runtime.function.JProcedure1.apply(JProcedure1.java:10)""".stripMargin
         )
 
-        val relevant = TestStackTraceInfoExtractor.mostRelevantTraceElement(trace).get
+        val relevant = TestStackTraceInfoExtractor.mostRelevantTraceElement(trace).value
         relevant.getFileName mustEqual "MailboxSelectorSpec.scala"
         relevant.getLineNumber mustBe 75
       }
@@ -107,14 +108,14 @@ class TestStackTraceInfoExtractorSpec extends AnyFreeSpec with Matchers {
             |at org.scalatest.TestSuite.withFixture(TestSuite.scala:196)
             |at org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)""".stripMargin)
 
-        val relevant = TestStackTraceInfoExtractor.mostRelevantTraceElement(trace).get
+        val relevant = TestStackTraceInfoExtractor.mostRelevantTraceElement(trace).value
         relevant.getFileName mustEqual "RemoteFailureSpec.scala"
         relevant.getLineNumber mustBe 60
       }
     }
   }
 
-  val TraceLineR = """at (.+)\.([^(]+)\(([^:]+):([^)]+)\)""".r
+  private val TraceLineR = """at (.+)\.([^(]+)\(([^:]+):([^)]+)\)""".r
   def stackTrace(stackTrace: String): Array[StackTraceElement] = {
     stackTrace
       .split("\n")
