@@ -5,7 +5,7 @@ name := """sbt-github-annotator"""
 sbtPlugin := true
 
 libraryDependencies ++= Seq(
-  "org.scalactic" %% "scalactic" % "3.2.19"  % "test",
+  "org.scalactic" %% "scalactic" % "3.2.19" % "test",
   "org.scalatest" %% "scalatest" % "3.2.19" % "test"
 )
 
@@ -50,4 +50,12 @@ scriptedLaunchOpts ++=
 //  )
 //)
 
-wartremoverWarnings ++= Seq(Wart.ArrayEquals, Wart.Any, Wart.AnyVal, Wart.AsInstanceOf)
+wartremoverWarnings ++= Seq(
+  Wart.ArrayEquals,
+  Wart.Any,
+  Wart.AnyVal,
+  Wart.AsInstanceOf,
+  Wart.EitherProjectionPartial,
+  Wart.Enumeration,
+  Wart.ExplicitImplicitTypes
+)
