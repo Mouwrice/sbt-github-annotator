@@ -4,11 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package net.virtualvoid.hackersdigest
+package io.github.mouwrice
 
 import sbt.*
 import Keys.*
-import sbt.hackersdigest.InternalAccess
 
 sealed trait AnnotationOrigin
 object AnnotationOrigin {

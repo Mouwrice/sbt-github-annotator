@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package sbt.hackersdigest
+package sbt
 
-import sbt.TaskKey
 import xsbti.Reporter
 
 object InternalAccess {

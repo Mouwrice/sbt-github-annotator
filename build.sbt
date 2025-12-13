@@ -9,7 +9,7 @@ libraryDependencies ++= Seq(
 
 inThisBuild(
   List(
-    tlBaseVersion    := "1.0",
+    tlBaseVersion    := "2.0",
     organization     := "io.github.mouwrice",
     organizationName := "Maurice Van Wassenhove",
     startYear        := Some(2025),

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package net.virtualvoid.hackersdigest
+package io.github.mouwrice
 
 import sbt.*
 import sbt.testing.Status
