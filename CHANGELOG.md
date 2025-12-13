@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/Mouwrice/sbt-github-annotator/compare/v1.0.0...v2.0.0) (2025-12-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename packages to io.github.mouwrice
+
+### Features
+
+* rename packages to io.github.mouwrice ([b98bf7c](https://github.com/Mouwrice/sbt-github-annotator/commit/b98bf7c8aac51a5d2d8611e65f7e11d46a401d67))
+
 ## 1.0.0 (2025-09-13)
 
 
