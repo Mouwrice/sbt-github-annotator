@@ -6,10 +6,10 @@
 
 package net.virtualvoid.hackersdigest
 
-import sbt._
+import sbt.*
 import sbt.testing.Status
 
-import java.nio.file.{Files, Path}
+import java.nio.file.Files
 
 class GithubAnnotationTestsListener(annotator: Annotator, baseDir: File, sourceDirs: Seq[File]) extends TestsListener {
   override def doInit(): Unit = ()

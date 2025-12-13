@@ -27,8 +27,8 @@ class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter
         .toPath
         .getRoot != null
     ) {
-      def e(key: String, value: java.util.Optional[Integer]): String =
-        value.map[String](v => s",$key=$v").orElse("")
+//      def e(key: String, value: java.util.Optional[Integer]): String =
+//        value.map[String](v => s",$key=$v").orElse("")
 
       val level: AnnotationSeverity = severity match {
         case Severity.Warn  => AnnotationSeverity.Warning
