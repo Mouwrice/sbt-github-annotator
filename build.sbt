@@ -1,4 +1,4 @@
-name := """sbt-github-annotator"""
+name := "sbt-github-annotator"
 
 sbtPlugin := true
 
@@ -11,13 +11,18 @@ inThisBuild(
   List(
     tlBaseVersion := "1.0",
     organization  := "io.github.mouwrice",
+    organizationName := "Maurice Van Wassenhove",
     startYear     := Some(2025),
     licenses      := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
+    tlGitHubRepo := Some("sbt-github-annotator"),
     developers := List(
       tlGitHubDev("mouwrice", "Maurice Van Wassenhove")
     )
   )
 )
+
+enablePlugins(AutomateHeaderPlugin)
+headerLicenseStyle := HeaderLicenseStyle.SpdxSyntax
 
 console / initialCommands := """import net.virtualvoid.hackersdigest._"""
 

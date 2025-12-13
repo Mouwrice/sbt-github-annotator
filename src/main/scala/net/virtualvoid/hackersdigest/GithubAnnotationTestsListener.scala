@@ -1,3 +1,9 @@
+/*
+ * Copyright 2025 Maurice Van Wassenhove
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package net.virtualvoid.hackersdigest
 
 import sbt._
