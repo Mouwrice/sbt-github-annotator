@@ -17,12 +17,15 @@ inThisBuild(
     tlGitHubRepo     := Some("sbt-github-annotator"),
     developers := List(
       tlGitHubDev("mouwrice", "Maurice Van Wassenhove")
-    )
+    ),
+    tlCiDependencyGraphJob := true
   )
 )
 
 enablePlugins(AutomateHeaderPlugin)
 headerLicenseStyle := HeaderLicenseStyle.SpdxSyntax
+
+enablePlugins(TypelevelUnidocPlugin)
 
 console / initialCommands := """import net.virtualvoid.hackersdigest._"""
 
