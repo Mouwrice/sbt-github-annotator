@@ -9,16 +9,14 @@ libraryDependencies ++= Seq(
 
 inThisBuild(
   List(
-    tlBaseVersion    := "2.0",
-    organization     := "io.github.mouwrice",
-    organizationName := "Maurice Van Wassenhove",
-    startYear        := Some(2025),
-    licenses         := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
-    tlGitHubRepo     := Some("sbt-github-annotator"),
-    developers := List(
-      tlGitHubDev("mouwrice", "Maurice Van Wassenhove")
-    ),
-    tlCiDependencyGraphJob := true
+    tlBaseVersion          := "2.0",
+    organization           := "io.github.mouwrice",
+    organizationName       := "Maurice Van Wassenhove",
+    startYear              := Some(2025),
+    licenses               := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
+    developers             := List(tlGitHubDev("mouwrice", "Maurice Van Wassenhove")),
+    tlCiDependencyGraphJob := true,
+    tlCiForkCondition      := "true" // Do not check for forks
   )
 )
 
