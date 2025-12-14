@@ -121,7 +121,7 @@ class TestStackTraceInfoExtractorSpec extends AnyFreeSpec with Matchers {
     }
   }
 
-  private val TraceLineR = """at (.+)\.([^(]+)\(([^:]+):([^)]+)\)""".r
+  private val TraceLineR                                       = """at (.+)\.([^(]+)\(([^:]+):([^)]+)\)""".r
   def stackTrace(stackTrace: String): Array[StackTraceElement] = {
     stackTrace
       .split("\n")
