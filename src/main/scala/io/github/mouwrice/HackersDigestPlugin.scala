@@ -102,7 +102,7 @@ object HackersDigestPlugin extends AutoPlugin {
     hackersDigestAnnotateCompileWarnings := true,
     hackersDigestAnnotateCompileErrors   := true,
     hackersDigestFilePathPrefix          := ".",
-    hackersDigestAnnotationFilter := {
+    hackersDigestAnnotationFilter        := {
       val annotateTestFailures = hackersDigestAnnotateTestFailures.value
       val compileWarnings      = hackersDigestAnnotateCompileWarnings.value
       val compileErrors        = hackersDigestAnnotateCompileErrors.value
@@ -115,7 +115,7 @@ object HackersDigestPlugin extends AutoPlugin {
             lineNumber: Option[Int]
         ): Boolean = {
           origin match {
-            case AnnotationOrigin.Testing => annotateTestFailures
+            case AnnotationOrigin.Testing     => annotateTestFailures
             case AnnotationOrigin.Compilation =>
               severity match {
                 case AnnotationSeverity.Warning => compileWarnings
