@@ -25,8 +25,6 @@ headerLicenseStyle := HeaderLicenseStyle.SpdxSyntax
 
 enablePlugins(TypelevelUnidocPlugin)
 
-console / initialCommands := """import net.virtualvoid.hackersdigest._"""
-
 enablePlugins(ScriptedPlugin)
 // set up scripted; sbt plugin for testing sbt plugins
 scriptedLaunchOpts ++=

@@ -57,7 +57,7 @@ trait Annotator {
     createAnnotation(origin, AnnotationSeverity.Warning, title)
 }
 
-object HackersDigestPlugin extends AutoPlugin {
+object GithubAnnotatorPlugin extends AutoPlugin {
   override def requires = plugins.JvmPlugin
   override def trigger  = allRequirements
 
@@ -76,7 +76,7 @@ object HackersDigestPlugin extends AutoPlugin {
       "Path prefix for the file paths in the annotations. Used for when your project is not at the root of your github repository."
     )
 
-    private[HackersDigestPlugin] val hackersDigestAnnotator = settingKey[Annotator]("")
+    private[GithubAnnotatorPlugin] val hackersDigestAnnotator = settingKey[Annotator]("")
   }
   import autoImport._
 
@@ -138,24 +138,23 @@ object HackersDigestPlugin extends AutoPlugin {
         hackersDigestFilePathPrefix.value
       )
 
-  private def annotator(filter: AnnotationFilter): Annotator = new Annotator {
-    override def createAnnotation(
-        origin: AnnotationOrigin,
-        severity: AnnotationSeverity,
-        title: String,
-        fileName: Option[String],
-        lineNumber: Option[Int]
-    ): Unit =
-      if (filter.filter(origin, severity, title, fileName, lineNumber)) {
-        val severityTag = severity match {
-          case AnnotationSeverity.Warning => "warning"
-          case AnnotationSeverity.Error   => "error"
-        }
-        def e(key: String, value: Any): String = s"$key=$value"
-
-        val entries: String = (fileName.map(e("file", _)) ++ lineNumber.map(e("line", _))).mkString(",")
-
-        println(s"::$severityTag $entries::$title")
+  private def annotator(filter: AnnotationFilter): Annotator = (
+      origin: AnnotationOrigin,
+      severity: AnnotationSeverity,
+      title: String,
+      fileName: Option[String],
+      lineNumber: Option[Int]
+  ) =>
+    if (filter.filter(origin, severity, title, fileName, lineNumber)) {
+      val severityTag = severity match {
+        case AnnotationSeverity.Warning => "warning"
+        case AnnotationSeverity.Error   => "error"
       }
-  }
+
+      def e(key: String, value: Any): String = s"$key=$value"
+
+      val entries: String = (fileName.map(e("file", _)) ++ lineNumber.map(e("line", _))).mkString(",")
+
+      println(s"::$severityTag $entries::$title")
+    }
 }
