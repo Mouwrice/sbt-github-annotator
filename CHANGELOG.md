@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/Mouwrice/sbt-github-annotator/compare/v2.0.0...v3.0.0) (2026-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename main plugin object
+
+### Features
+
+* rename main plugin object ([70a5ecf](https://github.com/Mouwrice/sbt-github-annotator/commit/70a5ecf1a91225a3a66a7ccac0aab6c256672868))
+
 ## [2.0.0](https://github.com/Mouwrice/sbt-github-annotator/compare/v1.0.0...v2.0.0) (2025-12-13)
 
 
