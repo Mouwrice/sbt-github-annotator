@@ -62,23 +62,23 @@ object GithubAnnotatorPlugin extends AutoPlugin {
   override def trigger  = allRequirements
 
   object autoImport {
-    val hackersDigestAnnotateTestFailures: SettingKey[Boolean] =
+    lazy val annotateTestFailures: SettingKey[Boolean] =
       settingKey[Boolean]("Whether test failures should be annotated")
-    val hackersDigestAnnotateCompileWarnings: SettingKey[Boolean] =
+    lazy val annotateCompileWarnings: SettingKey[Boolean] =
       settingKey[Boolean]("Whether compilation warnings should be annotated")
-    val hackersDigestAnnotateCompileErrors: SettingKey[Boolean] =
+    lazy val annotateCompileErrors: SettingKey[Boolean] =
       settingKey[Boolean]("Whether compilation errors should be annotated")
-    val hackersDigestAnnotationFilter: SettingKey[AnnotationFilter] =
+    lazy val annotationFilter: SettingKey[AnnotationFilter] =
       settingKey[AnnotationFilter](
         "Can be overridden to do fine-grained filtering for annotations. Will override whatever the boolean flag keys have set"
       )
-    val hackersDigestFilePathPrefix: SettingKey[String] = settingKey[String](
+    lazy val annotationFilePathPrefix: SettingKey[String] = settingKey[String](
       "Path prefix for the file paths in the annotations. Used for when your project is not at the root of your github repository."
     )
 
-    private[GithubAnnotatorPlugin] val hackersDigestAnnotator = settingKey[Annotator]("")
+    private[GithubAnnotatorPlugin] val annotator = settingKey[Annotator]("")
   }
-  import autoImport._
+  import autoImport.*
 
   @SuppressWarnings(Array("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   override def projectSettings: Seq[Def.Setting[?]] =
@@ -88,7 +88,7 @@ object GithubAnnotatorPlugin extends AutoPlugin {
         reporterFor(Test),
         testListeners +=
           new GithubAnnotationTestsListener(
-            hackersDigestAnnotator.value,
+            annotator.value,
             (ThisBuild / baseDirectory).value,
             (Test / sourceDirectories).value
           )
@@ -98,14 +98,14 @@ object GithubAnnotatorPlugin extends AutoPlugin {
 
   @SuppressWarnings(Array("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   override def globalSettings: Seq[Def.Setting[?]] = Seq(
-    hackersDigestAnnotateTestFailures    := true,
-    hackersDigestAnnotateCompileWarnings := true,
-    hackersDigestAnnotateCompileErrors   := true,
-    hackersDigestFilePathPrefix          := ".",
-    hackersDigestAnnotationFilter        := {
-      val annotateTestFailures = hackersDigestAnnotateTestFailures.value
-      val compileWarnings      = hackersDigestAnnotateCompileWarnings.value
-      val compileErrors        = hackersDigestAnnotateCompileErrors.value
+    annotateTestFailures     := true,
+    annotateCompileWarnings  := true,
+    annotateCompileErrors    := true,
+    annotationFilePathPrefix := ".",
+    annotationFilter         := {
+      val testFailures    = annotateTestFailures.value
+      val compileWarnings = annotateCompileWarnings.value
+      val compileErrors   = annotateCompileErrors.value
       new AnnotationFilter {
         override def filter(
             origin: AnnotationOrigin,
@@ -115,7 +115,7 @@ object GithubAnnotatorPlugin extends AutoPlugin {
             lineNumber: Option[Int]
         ): Boolean = {
           origin match {
-            case AnnotationOrigin.Testing     => annotateTestFailures
+            case AnnotationOrigin.Testing     => testFailures
             case AnnotationOrigin.Compilation =>
               severity match {
                 case AnnotationSeverity.Warning => compileWarnings
@@ -125,20 +125,20 @@ object GithubAnnotatorPlugin extends AutoPlugin {
         }
       }
     },
-    hackersDigestAnnotator := annotator(hackersDigestAnnotationFilter.value)
+    annotator := createAnnotator(annotationFilter.value)
   )
 
   @SuppressWarnings(Array("org.wartremover.warts.Any", "org.wartremover.warts.Nothing"))
   private def reporterFor(config: Configuration): Setting[?] =
     config / compile / InternalAccess.compilerReporter :=
       new GithubActionCompileReporter(
-        hackersDigestAnnotator.value,
+        annotator.value,
         (config / compile / InternalAccess.compilerReporter).value,
         (ThisBuild / baseDirectory).value,
-        hackersDigestFilePathPrefix.value
+        annotationFilePathPrefix.value
       )
 
-  private def annotator(filter: AnnotationFilter): Annotator = (
+  private def createAnnotator(filter: AnnotationFilter): Annotator = (
       origin: AnnotationOrigin,
       severity: AnnotationSeverity,
       title: String,
