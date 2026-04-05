@@ -4,7 +4,7 @@ sbtPlugin := true
 
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.2.20" % Test,
-  "org.scalatest" %% "scalatest" % "3.2.19" % Test
+  "org.scalatest" %% "scalatest" % "3.2.20" % Test
 )
 
 inThisBuild(
