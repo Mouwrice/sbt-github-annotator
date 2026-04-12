@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.0.0](https://github.com/Mouwrice/sbt-github-annotator/compare/v2.0.0...v3.0.0) (2026-04-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename main plugin object
+* rename packages to io.github.mouwrice
+* rename project to sbt-github-annotator
+
+### Features
+
+* allow setting a path prefix for when your project is not at the root of the git repository ([849f6f6](https://github.com/Mouwrice/sbt-github-annotator/commit/849f6f69fa749d96304bdb05610d599a22c38594))
+* rename main plugin object ([70a5ecf](https://github.com/Mouwrice/sbt-github-annotator/commit/70a5ecf1a91225a3a66a7ccac0aab6c256672868))
+* rename packages to io.github.mouwrice ([b98bf7c](https://github.com/Mouwrice/sbt-github-annotator/commit/b98bf7c8aac51a5d2d8611e65f7e11d46a401d67))
+* rename project to sbt-github-annotator ([7ce0fd5](https://github.com/Mouwrice/sbt-github-annotator/commit/7ce0fd525ab2ed3c682199431ffdd6ebc7966b2d))
+
+
+### Bug Fixes
+
+* do not relativize when file has no root element ([4a651d0](https://github.com/Mouwrice/sbt-github-annotator/commit/4a651d00fa4f18366195fe340401a27fe3cd3196))
+
 ## [2.0.0](https://github.com/Mouwrice/sbt-github-annotator/compare/v1.0.0...v2.0.0) (2025-12-13)
 
 
