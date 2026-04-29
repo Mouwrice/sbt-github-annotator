@@ -19,7 +19,7 @@ class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter
 
   def log(problem: xsbti.Problem): Unit = {
     delegate.log(problem)
-    import problem._
+    import problem.*
 
     if (
       (severity == Severity.Warn || severity == Severity.Error) && position.sourceFile.isPresent && position.sourceFile
