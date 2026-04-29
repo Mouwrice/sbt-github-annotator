@@ -1,3 +1,5 @@
+import org.typelevel.sbt.gha.JavaSpec.Distribution.Temurin
+
 name := "sbt-github-annotator"
 
 sbtPlugin := true
@@ -37,15 +39,16 @@ lazy val root = (project in file("."))
 
 inThisBuild(
   List(
-    tlBaseVersion          := "2.0",
-    organization           := "io.github.mouwrice",
-    organizationName       := "Maurice Van Wassenhove",
-    startYear              := Some(2025),
-    licenses               := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
-    developers             := List(tlGitHubDev("mouwrice", "Maurice Van Wassenhove")),
-    description            := "Sbt plugin that annotates GitHub pull requests",
-    tlCiDependencyGraphJob := true,
-    tlCiForkCondition      := "true" // Do not check for forks
+    tlBaseVersion              := "2.0",
+    organization               := "io.github.mouwrice",
+    organizationName           := "Maurice Van Wassenhove",
+    startYear                  := Some(2025),
+    licenses                   := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
+    developers                 := List(tlGitHubDev("mouwrice", "Maurice Van Wassenhove")),
+    description                := "Sbt plugin that annotates GitHub pull requests",
+    tlCiDependencyGraphJob     := true,
+    tlCiForkCondition          := "true", // Do not check for forks
+    githubWorkflowJavaVersions := Seq(JavaSpec(Temurin, "17"))
   )
 )
 

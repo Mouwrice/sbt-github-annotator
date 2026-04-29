@@ -17,7 +17,7 @@
           imports = [ typelevel-nix.typelevelShell ];
           name = "sbt-github-annotator";
           typelevelShell = {
-            jdk.package = pkgs.jdk8;
+            jdk.package = pkgs.jdk17;
             native.enable = false;
             nodejs.enable = false;
           };
