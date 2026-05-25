@@ -151,10 +151,10 @@ object GithubAnnotatorPlugin extends AutoPlugin {
         case AnnotationSeverity.Error   => "error"
       }
 
-      def e(key: String, value: Any): String = s"$key=$value"
+      def e(key: String, value: String): String = key + "=" + value
 
-      val entries: String = (fileName.map(e("file", _)) ++ lineNumber.map(e("line", _))).mkString(",")
+      val entries: String = (fileName.map(e("file", _)) ++ lineNumber.map(n => e("line", n.toString))).mkString(",")
 
-      println(s"::$severityTag $entries::$title")
+      println("::" + severityTag + " " + entries + "::" + title)
     }
 }
