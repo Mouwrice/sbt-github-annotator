@@ -16,7 +16,7 @@ class GithubAnnotationTestsListener(annotator: Annotator, baseDir: File, sourceD
 
   override def doComplete(finalResult: TestResult): Unit = ()
 
-  override def startGroup(name: String): Unit = println(s"::group::$name")
+  override def startGroup(name: String): Unit = println("::group::" + name)
 
   override def testEvent(event: TestEvent): Unit = {
     if (event.result.contains(TestResult.Failed)) {

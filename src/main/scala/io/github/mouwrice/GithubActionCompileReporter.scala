@@ -19,7 +19,7 @@ class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter
 
   def log(problem: xsbti.Problem): Unit = {
     delegate.log(problem)
-    import problem._
+    import problem.*
 
     if (
       (severity == Severity.Warn || severity == Severity.Error) && position.sourceFile.isPresent && position.sourceFile
@@ -36,10 +36,11 @@ class GithubActionCompileReporter(annotator: Annotator, delegate: xsbti.Reporter
         case _              => throw new IllegalStateException
       }
       // TODO: resurrect column info: ${e("col", position.startColumn())}${e("endColumn", position.endColumn())}
-      val message = problem.message.split("\n").head
-      val file    = baseDir.toPath.relativize(position.sourceFile.get().toPath).toFile
-      val line    = if (position.line.isPresent) Some(position.line.get().intValue) else None
-      annotator.createAnnotation(AnnotationOrigin.Compilation, level, message, Some(s"$pathPrefix/$file"), line)
+      val message          = problem.message.split("\n").head
+      val file             = baseDir.toPath.relativize(position.sourceFile.get().toPath).toFile
+      val line             = if (position.line.isPresent) Some(position.line.get().intValue) else None
+      val filePath: String = pathPrefix + "/" + file.toString
+      annotator.createAnnotation(AnnotationOrigin.Compilation, level, message, Some(filePath), line)
     }
   }
 
